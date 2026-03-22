@@ -3,956 +3,724 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CapyWare V1.0 — Documentation</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>CapyWare — Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #070910;
-  --bg2:      #0a0c14;
-  --bg3:      #0d1020;
-  --border:   #1a2540;
-  --border2:  #243050;
-  --cyan:     #00ff96;
-  --green:    #00ff96;
-  --orange:   #ffaa30;
-  --red:      #ff4060;
-  --purple:   #c084fc;
-  --dim:      #2a4060;
-  --text:     #c8d8e8;
-  --text2:    #6a8aaa;
-  --text3:    #3a5570;
+  --bg:     #070910; --bg2: #0a0c14; --bg3: #0d1020;
+  --border: #1a2540; --border2: #243050;
+  --green:  #00ff96; --orange: #ffaa30; --red: #ff4060;
+  --purple: #c084fc; --blue: #7dd3fc;
+  --dim:    #2a4060; --text: #c8d8e8; --text2: #6a8aaa; --text3: #3a5570;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7; overflow-x: hidden; }
+::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
+.layout { display: flex; min-height: 100vh; }
 
-/* ── scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+/* NAV */
+nav { width: 250px; min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; }
+.nav-logo { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+.nav-logo .e { font-size: 26px; display: block; margin-bottom: 6px; }
+.nav-logo .n { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; }
+.nav-logo .v { font-size: 10px; color: var(--green); margin-top: 2px; }
+.nav-sec { padding: 16px 14px 6px; }
+.nav-sec-t { font-size: 8px; font-weight: 700; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 4px; padding: 0 6px; }
+.nav-link { display: block; padding: 5px 10px; color: var(--text2); text-decoration: none; border-radius: 4px; font-size: 12px; transition: all .12s; border-left: 2px solid transparent; }
+.nav-link:hover, .nav-link.active { color: var(--green); background: rgba(0,255,150,.06); border-left-color: var(--green); }
 
-/* ── noise overlay ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 0; opacity: .4;
-}
+/* MAIN */
+main { flex: 1; max-width: 820px; padding: 52px 56px; }
 
-/* ── layout ── */
-.layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+/* HERO */
+.hero { margin-bottom: 64px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+.badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(0,255,150,.08); border: 1px solid rgba(0,255,150,.2); color: var(--green); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-bottom: 16px; letter-spacing: 1px; }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -2px; line-height: 1; margin-bottom: 14px; }
+.hero p { color: var(--text2); font-size: 14px; max-width: 480px; margin-bottom: 24px; }
+.btns { display: flex; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; text-decoration: none; transition: all .15s; }
+.btn-g { background: var(--green); color: #040a04; }
+.btn-g:hover { background: #00e688; }
+.btn-o { background: transparent; color: var(--green); border: 1px solid var(--green); }
+.btn-o:hover { background: rgba(0,255,150,.07); }
 
-/* ── sidebar ── */
-nav {
-  width: 260px; min-height: 100vh;
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
-  position: sticky; top: 0; height: 100vh;
-  overflow-y: auto; flex-shrink: 0;
-  display: flex; flex-direction: column;
-}
+/* SECTIONS */
+.sec { margin-bottom: 60px; }
+.anchor { scroll-margin-top: 36px; }
+h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+h3 { font-size: 13px; font-weight: 700; color: var(--green); margin: 28px 0 10px; letter-spacing: .4px; }
+.sdesc { color: var(--text2); margin-bottom: 22px; font-size: 13px; }
+.sdiv { height: 1px; background: var(--border); margin-bottom: 32px; position: relative; }
+.sdiv::after { content: ''; position: absolute; left: 0; top: 0; width: 48px; height: 1px; background: var(--green); opacity: .4; }
 
-.nav-logo {
-  padding: 28px 24px 20px;
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
-.nav-logo .name {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px; font-weight: 800;
-  color: #fff; letter-spacing: 0px;
-}
-.nav-logo .ver {
-  font-size: 11px; color: var(--green);
-  font-weight: 500; margin-top: 2px;
-}
+/* CODE */
+pre { background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 16px 20px; overflow-x: auto; margin: 10px 0 18px; position: relative; }
+pre::before { content: attr(data-lang); position: absolute; top: 8px; right: 12px; font-size: 9px; color: var(--text3); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text); }
+p code, li code, td code { background: rgba(0,255,150,.07); border: 1px solid rgba(0,255,150,.15); border-radius: 3px; padding: 1px 5px; font-size: 11px; color: var(--green); }
 
-.nav-section {
-  padding: 20px 16px 8px;
-}
-.nav-section-title {
-  font-size: 9px; font-weight: 700;
-  color: var(--text3); letter-spacing: 3px;
-  text-transform: uppercase; margin-bottom: 6px;
-  padding: 0 8px;
-}
-.nav-link {
-  display: block; padding: 7px 12px;
-  color: var(--text2); text-decoration: none;
-  border-radius: 5px; font-size: 13px;
-  transition: all .15s; border-left: 2px solid transparent;
-}
-.nav-link:hover { color: var(--cyan); background: rgba(0,212,255,.06); border-left-color: var(--cyan); }
-.nav-link.active { color: var(--cyan); background: rgba(0,212,255,.08); border-left-color: var(--cyan); }
-.nav-link .tag {
-  float: right; font-size: 9px; padding: 2px 6px;
-  border-radius: 3px; font-weight: 700;
-  background: rgba(0,255,157,.1); color: var(--green);
-}
-
-/* ── main content ── */
-main {
-  flex: 1; max-width: 860px;
-  padding: 60px 64px;
-}
-
-/* ── hero ── */
-.hero {
-  margin-bottom: 80px;
-  padding-bottom: 60px;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-.hero::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 0;
-  width: 120px; height: 1px;
-  background: linear-gradient(90deg, var(--cyan), transparent);
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(0,255,157,.08); border: 1px solid rgba(0,255,157,.2);
-  color: var(--green); font-size: 11px; font-weight: 700;
-  padding: 4px 10px; border-radius: 4px;
-  margin-bottom: 20px; letter-spacing: 1px;
-}
-.hero-badge::before { content: '●'; font-size: 8px; }
-.hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: 56px; font-weight: 800; line-height: 1;
-  color: #fff; margin-bottom: 16px;
-  letter-spacing: -2px;
-}
-.hero h1 span { color: var(--cyan); }
-.hero p {
-  font-size: 15px; color: var(--text2);
-  max-width: 540px; line-height: 1.8;
-  margin-bottom: 28px;
-}
-.hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px; border-radius: 5px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px; font-weight: 700;
-  text-decoration: none; transition: all .2s;
-  cursor: pointer; border: none;
-}
-.btn-primary {
-  background: var(--green); color: #050a05;
-}
-.btn-primary:hover { background: #00e68a; transform: translateY(-1px); }
-.btn-outline {
-  background: transparent; color: var(--cyan);
-  border: 1px solid var(--cyan);
-}
-.btn-outline:hover { background: rgba(0,212,255,.08); }
-
-/* ── sections ── */
-.section { margin-bottom: 72px; }
-
-h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 26px; font-weight: 700; color: #fff;
-  margin-bottom: 8px;
-}
-h3 {
-  font-size: 15px; font-weight: 700; color: var(--cyan);
-  margin: 32px 0 12px; letter-spacing: .5px;
-}
-h4 {
-  font-size: 13px; font-weight: 700; color: var(--text);
-  margin: 20px 0 8px;
-}
-.section-desc {
-  color: var(--text2); margin-bottom: 28px; font-size: 14px;
-}
-.section-divider {
-  height: 1px; background: var(--border);
-  margin-bottom: 40px; position: relative;
-}
-.section-divider::after {
-  content: '';
-  position: absolute; left: 0; top: 0;
-  width: 60px; height: 1px;
-  background: var(--cyan); opacity: .5;
-}
-
-/* ── code blocks ── */
-pre {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 20px 24px;
-  overflow-x: auto;
-  margin: 12px 0 20px;
-  position: relative;
-}
-pre::before {
-  content: attr(data-lang);
-  position: absolute; top: 10px; right: 14px;
-  font-size: 10px; color: var(--text3);
-  font-weight: 700; letter-spacing: 1px;
-  text-transform: uppercase;
-}
-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text);
-}
-pre code { color: var(--text); }
-
-/* syntax highlighting via spans */
+/* syntax */
 .kw  { color: var(--purple); font-weight: 600; }
-.fn  { color: var(--cyan); }
-.str { color: var(--green); }
+.fn  { color: var(--green); }
+.str { color: #86efac; }
 .num { color: var(--orange); }
 .cmt { color: var(--dim); font-style: italic; }
-.flag { color: #7dd3fc; }
+.fl  { color: var(--blue); }
+.op  { color: var(--text2); }
 
-/* inline code */
-p code, li code, td code {
-  background: rgba(0,212,255,.08);
-  border: 1px solid rgba(0,212,255,.15);
-  border-radius: 3px; padding: 1px 6px;
-  font-size: 12px; color: var(--cyan);
-}
-
-/* ── tables ── */
-.table-wrap { overflow-x: auto; margin: 12px 0 24px; }
-table {
-  width: 100%; border-collapse: collapse;
-  font-size: 13px;
-}
-th {
-  text-align: left; padding: 10px 16px;
-  background: var(--bg3); color: var(--text2);
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
-}
-td {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
+/* TABLES */
+.tw { overflow-x: auto; margin: 10px 0 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; padding: 8px 14px; background: var(--bg3); color: var(--text2); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: rgba(255,255,255,.02); }
-td:first-child code { color: var(--cyan); }
+tr:hover td { background: rgba(255,255,255,.015); }
+td:first-child code { color: var(--green); background: transparent; border: none; font-size: 12px; }
 
-/* ── callouts ── */
-.callout {
-  display: flex; gap: 14px;
-  padding: 16px 20px; border-radius: 6px;
-  margin: 16px 0;
-}
-.callout-info {
-  background: rgba(0,212,255,.06);
-  border: 1px solid rgba(0,212,255,.2);
-}
-.callout-warn {
-  background: rgba(255,170,48,.06);
-  border: 1px solid rgba(255,170,48,.2);
-}
-.callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
-.callout-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
-.callout-body strong { color: var(--text); }
+/* CALLOUTS */
+.info, .warn { display: flex; gap: 12px; padding: 13px 16px; border-radius: 5px; margin: 14px 0; font-size: 12px; color: var(--text2); line-height: 1.7; }
+.info { background: rgba(0,255,150,.05); border: 1px solid rgba(0,255,150,.15); }
+.warn { background: rgba(255,170,48,.05); border: 1px solid rgba(255,170,48,.18); }
+.info strong, .warn strong { color: var(--text); }
 
-/* ── api cards ── */
-.api-grid { display: grid; gap: 10px; margin: 16px 0; }
-.api-card {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 6px; padding: 16px 20px;
-  transition: border-color .2s;
-}
-.api-card:hover { border-color: var(--border2); }
-.api-card-sig {
-  font-size: 13px; font-weight: 700;
-  color: var(--cyan); margin-bottom: 6px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.api-card-sig .fn-name { color: var(--purple); }
-.api-card-desc { font-size: 12px; color: var(--text2); }
+/* API CARDS */
+.cards { display: grid; gap: 8px; margin: 12px 0; }
+.card { background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 13px 16px; }
+.card:hover { border-color: var(--border2); }
+.card-sig { font-size: 12px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.card-sig .fn-n { color: var(--purple); }
+.card-desc { font-size: 11px; color: var(--text2); }
 
-/* ── ring diagram ── */
-.ring-diagram {
-  display: flex; flex-direction: column; gap: 6px;
-  margin: 16px 0 24px; padding: 20px;
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 6px;
-}
-.ring-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 8px 12px; border-radius: 4px;
-  background: rgba(255,255,255,.02);
-}
-.ring-badge {
-  font-size: 10px; font-weight: 800;
-  padding: 3px 8px; border-radius: 3px;
-  min-width: 52px; text-align: center;
-  letter-spacing: 1px;
-}
-.ring-0 .ring-badge { background: rgba(0,255,157,.15); color: var(--green); }
-.ring-1 .ring-badge { background: rgba(0,212,255,.15); color: var(--cyan); }
-.ring-2 .ring-badge { background: rgba(255,170,48,.12); color: var(--orange); }
-.ring-arrow { color: var(--dim); font-size: 12px; }
-.ring-desc { font-size: 12px; color: var(--text2); }
+/* RING */
+.rings { display: flex; flex-direction: column; gap: 5px; padding: 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; margin: 12px 0 20px; }
+.ring { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 3px; background: rgba(255,255,255,.015); }
+.rb { font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 2px; min-width: 48px; text-align: center; letter-spacing: 1px; }
+.r0 .rb { background: rgba(0,255,150,.15); color: var(--green); }
+.r1 .rb { background: rgba(0,200,255,.12); color: #00d4ff; }
+.r2 .rb { background: rgba(255,170,48,.1); color: var(--orange); }
+.rd { font-size: 11px; color: var(--text2); }
 
-/* ── folder tree ── */
-.folder-tree {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: 6px; padding: 20px 24px;
-  margin: 12px 0; font-size: 13px;
-  line-height: 2;
-}
-.folder-tree .dir { color: var(--orange); font-weight: 700; }
-.folder-tree .file { color: var(--text2); }
-.folder-tree .desc { color: var(--dim); font-size: 11px; }
+/* FOLDER TREE */
+.tree { background: var(--bg3); border: 1px solid var(--border); border-radius: 5px; padding: 16px 20px; margin: 10px 0; font-size: 12px; line-height: 2; }
+.tree .d { color: var(--orange); font-weight: 700; }
+.tree .f { color: var(--text2); }
+.tree .c { color: var(--dim); font-size: 10px; }
 
-/* ── changelog ── */
-.changelog-entry {
-  display: flex; gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-}
-.changelog-entry:last-child { border-bottom: none; }
-.changelog-ver {
-  min-width: 60px; font-weight: 800;
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-}
-.changelog-ver.current { color: var(--green); }
-.changelog-ver.old { color: var(--text3); }
-.changelog-body { flex: 1; }
-.changelog-body ul { padding-left: 16px; }
-.changelog-body li { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+/* CHANGELOG */
+.cl { padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; gap: 18px; }
+.cl:last-child { border-bottom: none; }
+.clv { min-width: 56px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; }
+.clv.cur { color: var(--green); }
+.clv.old { color: var(--text3); }
+.cl ul { padding-left: 14px; }
+.cl li { font-size: 12px; color: var(--text2); margin-bottom: 3px; }
 
-/* ── footer ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 40px 64px;
-  color: var(--text3); font-size: 12px;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 16px;
-}
+footer { border-top: 1px solid var(--border); padding: 32px 56px; color: var(--text3); font-size: 11px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 footer a { color: var(--dim); text-decoration: none; }
-footer a:hover { color: var(--cyan); }
-
-/* ── active section highlight ── */
-.anchor { scroll-margin-top: 40px; }
+footer a:hover { color: var(--green); }
 </style>
 </head>
 <body>
-
 <div class="layout">
 
-<!-- SIDEBAR -->
 <nav>
   <div class="nav-logo">
-    <span class="emoji">🦫</span>
-    <div class="name">CapyWare</div>
-    <div class="ver">V1.0 Documentation</div>
+    <span class="e">🦫</span>
+    <div class="n">CapyWare</div>
+    <div class="v">V1.3 Documentation</div>
   </div>
-
-  <div class="nav-section">
-    <div class="nav-section-title">Getting Started</div>
+  <div class="nav-sec">
+    <div class="nav-sec-t">Getting Started</div>
     <a href="#intro"     class="nav-link active">Introduction</a>
     <a href="#install"   class="nav-link">Installation</a>
     <a href="#structure" class="nav-link">Folder Structure</a>
     <a href="#ui"        class="nav-link">Interface</a>
   </div>
-
-  <div class="nav-section">
-    <div class="nav-section-title">Scripting</div>
-    <a href="#flags"     class="nav-link">FFlags <span class="tag">core</span></a>
-    <a href="#scripting" class="nav-link">Scripting Engine</a>
-    <a href="#events"    class="nav-link">Events</a>
-    <a href="#filesystem" class="nav-link">Filesystem</a>
-    <a href="#dumps"     class="nav-link">Dump System</a>
-    <a href="#http"      class="nav-link">HTTP / request()</a>
+  <div class="nav-sec">
+    <div class="nav-sec-t">Core</div>
+    <a href="#flags"    class="nav-link">FFlags ★</a>
+    <a href="#json"     class="nav-link">JSON Mode</a>
+    <a href="#prefix"   class="nav-link">Prefix Stripping</a>
+    <a href="#dumps"    class="nav-link">Dump System</a>
   </div>
-
-  <div class="nav-section">
-    <div class="nav-section-title">Reference</div>
-    <a href="#api"       class="nav-link">capyware.* API</a>
+  <div class="nav-sec">
+    <div class="nav-sec-t">Scripting</div>
+    <a href="#vars"      class="nav-link">Variables</a>
+    <a href="#control"   class="nav-link">Control Flow</a>
+    <a href="#functions" class="nav-link">Functions</a>
+    <a href="#events"    class="nav-link">Events</a>
+    <a href="#math"      class="nav-link">math.*</a>
+    <a href="#os"        class="nav-link">os.*</a>
+    <a href="#env"       class="nav-link">env.*</a>
+    <a href="#globals"   class="nav-link">Globals</a>
+    <a href="#fs"        class="nav-link">Filesystem</a>
+    <a href="#http"      class="nav-link">request()</a>
+    <a href="#api"       class="nav-link">capyware.*</a>
     <a href="#set"       class="nav-link">set() / enum</a>
+  </div>
+  <div class="nav-sec">
+    <div class="nav-sec-t">Reference</div>
     <a href="#misc"      class="nav-link">MISC Tab</a>
     <a href="#settings"  class="nav-link">Settings</a>
     <a href="#changelog" class="nav-link">Changelog</a>
   </div>
 </nav>
 
-<!-- MAIN -->
 <main>
 
-  <!-- HERO -->
-  <div class="hero" id="intro">
-    <div class="hero-badge">V1.0 — STABLE</div>
-    <h1>CapyWare</h1>
-    <p>External FFlag executor for Roblox. Modify client-side feature flags directly from memory — no injection, no DLL. Built with Python, runs from a clean GUI.</p>
-    <div class="hero-links">
-      <a href="https://github.com/KrutoyCapybarin/CapyWare/releases" class="btn btn-primary">↓ Download V1.0</a>
-      <a href="https://github.com/KrutoyCapybarin/CapyWare" class="btn btn-outline">GitHub →</a>
-    </div>
+<!-- HERO -->
+<div class="hero anchor" id="intro">
+  <div class="badge">● V1.3 — STABLE</div>
+  <h1>CapyWare</h1>
+  <p>External FFlag executor for Roblox. Writes client-side feature flags directly to memory — no DLL injection, no hooks. Scripting engine included.</p>
+  <div class="btns">
+    <a href="https://github.com/KrutoyCapybarin/CapyWare/releases" class="btn btn-g">↓ Download</a>
+    <a href="https://github.com/KrutoyCapybarin/CapyWare" class="btn btn-o">GitHub →</a>
   </div>
+</div>
 
-  <!-- INSTALLATION -->
-  <div class="section anchor" id="install">
-    <h2>Installation</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">First-time setup is fully automatic. Just download and run.</p>
+<!-- INSTALLATION -->
+<div class="sec anchor" id="install">
+  <h2>Installation</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Первый запуск — автоматический установщик. Просто скачай и запусти.</p>
 
-    <h3>First Run (from Desktop or Downloads)</h3>
-    <p style="color:var(--text2);margin-bottom:12px;">When you run <code>CapyWare.exe</code> from Desktop or Downloads for the first time, the installer kicks in automatically:</p>
-    <ol style="padding-left:20px;color:var(--text2);line-height:2.2;font-size:13px;">
-      <li>Creates <code>%DESKTOP%/CapyWare/</code> with subfolders</li>
-      <li>Copies <code>CapyWare.exe</code> into the new folder</li>
-      <li>Creates a shortcut <code>CapyWare.lnk</code> on your Desktop</li>
-      <li>Launches the installed copy</li>
-      <li>Deletes the original download — cleanup done</li>
-    </ol>
+  <h3>Первый запуск (с Desktop или Downloads)</h3>
+  <p style="color:var(--text2);margin-bottom:10px;">При запуске <code>CapyWare.exe</code> с рабочего стола или папки загрузок:</p>
+  <ol style="padding-left:18px;color:var(--text2);line-height:2.2;font-size:12px;">
+    <li>Создаётся папка <code>%DESKTOP%/CapyWare/</code> с подпапками</li>
+    <li>Exe копируется в папку</li>
+    <li>Создаётся ярлык <code>CapyWare.lnk</code> на рабочем столе</li>
+    <li>Запускается установленная копия</li>
+    <li>Оригинальный файл удаляется</li>
+  </ol>
 
-    <div class="callout callout-info">
-      <span class="callout-icon">ℹ</span>
-      <div class="callout-body">After install, always use the <strong>Desktop shortcut</strong> or the exe inside the CapyWare folder. The downloaded file deletes itself.</div>
-    </div>
+  <div class="info">ℹ <div>После установки используй <strong>ярлык на рабочем столе</strong> или exe из папки CapyWare.</div></div>
 
-    <h3>Dependencies</h3>
-    <p style="color:var(--text2);margin-bottom:12px;">The launcher installs everything automatically on first run via pip:</p>
-    <pre data-lang="txt"><code>PyQt5     — UI framework
-keyboard  — global hotkeys
-requests  — HTTP (request() scripting function)</code></pre>
+  <h3>Зависимости (устанавливаются автоматически)</h3>
+  <pre data-lang="txt"><code>PyQt5     — UI
+keyboard  — глобальные хоткеи
+requests  — HTTP для request()</code></pre>
+</div>
+
+<!-- FOLDER STRUCTURE -->
+<div class="sec anchor" id="structure">
+  <h2>Folder Structure</h2>
+  <div class="sdiv"></div>
+  <div class="tree">
+<span class="d">CapyWare/</span>
+├── <span class="d">autoexec/</span>   <span class="c">← скрипты запускаются при каждом Inject</span>
+├── <span class="d">scripts/</span>    <span class="c">← библиотека скриптов (Open/Save)</span>
+├── <span class="d">workspace/</span>  <span class="c">← рабочая папка для readfile/writefile</span>
+├── <span class="f">CapyWare.exe</span>
+└── <span class="f">config.cfg</span>  <span class="c">← настройки (JSON, сохраняются автоматически)</span>
   </div>
+  <div class="info">ℹ <div><strong>autoexec/</strong> — все файлы <code>.cw</code> <code>.ff</code> <code>.txt</code> запускаются в алфавитном порядке при нажатии <strong>⚡ Inject</strong>.</div></div>
+</div>
 
-  <!-- FOLDER STRUCTURE -->
-  <div class="section anchor" id="structure">
-    <h2>Folder Structure</h2>
-    <div class="section-divider"></div>
+<!-- UI -->
+<div class="sec anchor" id="ui">
+  <h2>Interface</h2>
+  <div class="sdiv"></div>
+  <h3>Кнопки</h3>
+  <div class="tw"><table>
+    <tr><th>Кнопка</th><th>Действие</th></tr>
+    <tr><td><code>▶ Execute</code></td><td>Выполнить скрипт из редактора</td></tr>
+    <tr><td><code>Clear</code></td><td>Очистить редактор</td></tr>
+    <tr><td><code>Open</code></td><td>Открыть файл из <code>scripts/</code></td></tr>
+    <tr><td><code>Save</code></td><td>Сохранить в <code>scripts/</code></td></tr>
+    <tr><td><code>↻ Offsets</code></td><td>Перезагрузить дамп ring 0 с GitHub</td></tr>
+    <tr><td><code>⏏ Eject</code></td><td>Отключиться, очистить все OnKeyPress хендлеры</td></tr>
+    <tr><td><code>⚡ Inject</code></td><td>Подключиться к Roblox, запустить autoexec и OnAttach</td></tr>
+  </table></div>
+</div>
 
-    <div class="folder-tree">
-<span class="dir">CapyWare/</span>
-├── <span class="dir">autoexec/</span>     <span class="desc">← scripts run automatically on Inject</span>
-│   └── <span class="file">boost.cw</span>
-├── <span class="dir">scripts/</span>      <span class="desc">← your saved scripts, Open/Save goes here</span>
-│   └── <span class="file">fps_unlock.cw</span>
-├── <span class="dir">workspace/</span>    <span class="desc">← readfile/writefile default directory</span>
-│   └── <span class="file">log.txt</span>
-├── <span class="file">CapyWare.exe</span>  <span class="desc">← main executable</span>
-└── <span class="file">config.cfg</span>    <span class="desc">← auto-saved settings (JSON)</span>
-    </div>
+<!-- FLAGS -->
+<div class="sec anchor" id="flags">
+  <h2>FFlags ★</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Основная функция CapyWare — запись FFlag значений в память Roblox. Два формата синтаксиса.</p>
 
-    <div class="callout callout-info">
-      <span class="callout-icon">ℹ</span>
-      <div class="callout-body"><strong>autoexec/</strong> runs all <code>.cw</code>, <code>.ff</code>, <code>.txt</code> files in alphabetical order every time you click <strong>⚡ Inject</strong>. Place your persistent scripts here.</div>
-    </div>
-  </div>
+  <h3>Key = Value</h3>
+  <pre data-lang="capyware"><code><span class="cmt">-- числовой флаг</span>
+<span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
 
-  <!-- UI -->
-  <div class="section anchor" id="ui">
-    <h2>Interface</h2>
-    <div class="section-divider"></div>
+<span class="cmt">-- булев флаг</span>
+<span class="fl">DebugDisplayFPS</span> <span class="op">=</span> <span class="kw">true</span>
+<span class="fl">DisableDPIScale</span> <span class="op">=</span> <span class="kw">false</span>
 
-    <h3>Tabs</h3>
-    <div class="table-wrap">
-    <table>
-      <tr><th>Tab</th><th>Purpose</th></tr>
-      <tr><td><code>EXECUTOR</code></td><td>Main script editor with line numbers, syntax highlighting, output console</td></tr>
-      <tr><td><code>MISC</code></td><td>Quick toggles for common flags — FPS, DPI, Bandwidth</td></tr>
-      <tr><td><code>SETTINGS</code></td><td>Feature toggles, keybind config, scripting reference</td></tr>
-    </table>
-    </div>
+<span class="cmt">-- значения true/false/1/0 — все работают</span>
+<span class="fl">DebugDisplayFPS</span> <span class="op">=</span> <span class="num">1</span></code></pre>
+  <div class="info">ℹ <div>Заглавная буква в начале имени = FFlag. Строчная буква = переменная скрипта.</div></div>
+</div>
 
-    <h3>Buttons</h3>
-    <div class="table-wrap">
-    <table>
-      <tr><th>Button</th><th>Action</th></tr>
-      <tr><td><code>▶ Execute</code></td><td>Run the current script in the editor</td></tr>
-      <tr><td><code>Clear</code></td><td>Clear editor contents</td></tr>
-      <tr><td><code>Open</code></td><td>Open a script from <code>scripts/</code></td></tr>
-      <tr><td><code>Save</code></td><td>Save current editor to <code>scripts/</code></td></tr>
-      <tr><td><code>↻ Offsets</code></td><td>Reload dump from GitHub (ring 0)</td></tr>
-      <tr><td><code>⏏ Eject</code></td><td>Release process handle, clear all OnKeyPress handlers</td></tr>
-      <tr><td><code>⚡ Inject</code></td><td>Attach to RobloxPlayerBeta.exe, run autoexec + OnAttach</td></tr>
-    </table>
-    </div>
-  </div>
-
-  <!-- FLAGS -->
-  <div class="section anchor" id="flags">
-    <h2>FFlags</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">The core purpose of CapyWare. Two syntax formats are supported.</p>
-
-    <h3>Key = Value syntax</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- set target FPS</span>
-<span class="flag">TaskSchedulerTargetFps</span> = <span class="num">9999</span>
-
-<span class="cmt">-- enable debug FPS counter</span>
-<span class="flag">DebugDisplayFPS</span> = <span class="kw">true</span>
-
-<span class="cmt">-- disable DPI scaling</span>
-<span class="flag">DisableDPIScale</span> = <span class="kw">true</span>
-
-<span class="cmt">-- set physics bandwidth</span>
-<span class="flag">PhysicsSenderMaxBandwidthBps</span> = <span class="num">100000000</span></code></pre>
-
-    <h3>JSON syntax</h3>
-    <pre data-lang="json"><code>{
+<!-- JSON -->
+<div class="sec anchor" id="json">
+  <h2>JSON Mode</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Если текст начинается с <code>{</code> — автоматически парсится как JSON. Приоритет над скриптовым движком.</p>
+  <pre data-lang="json"><code>{
   <span class="str">"TaskSchedulerTargetFps"</span>: <span class="num">9999</span>,
   <span class="str">"DebugDisplayFPS"</span>: <span class="kw">true</span>,
-  <span class="str">"DisableDPIScale"</span>: <span class="kw">true</span>,
-  <span class="str">"PhysicsSenderMaxBandwidthBps"</span>: <span class="num">100000000</span>
+  <span class="str">"DisableDPIScale"</span>: <span class="kw">true</span>
 }</code></pre>
+  <div class="info">ℹ <div>JSON режим можно выключить в Settings → Auto JSON mode.</div></div>
+</div>
 
-    <div class="callout callout-info">
-      <span class="callout-icon">ℹ</span>
-      <div class="callout-body">Auto JSON mode detects <code>{</code> at the start and switches parser automatically. Can be disabled in Settings.</div>
-    </div>
+<!-- PREFIX -->
+<div class="sec anchor" id="prefix">
+  <h2>Prefix Stripping</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Если флаг не найден в дампе — CapyWare отрезает известный префикс и ищет bare-имя. Работает по всем ring'ам.</p>
+  <div class="tw"><table>
+    <tr><th>Что написал</th><th>Что ищется</th></tr>
+    <tr><td><code>DFIntTaskSchedulerTargetFps</code></td><td>→ <code>TaskSchedulerTargetFps</code></td></tr>
+    <tr><td><code>FFlagDebugDisplayFPS</code></td><td>→ <code>DebugDisplayFPS</code></td></tr>
+    <tr><td><code>DFLogAbuseReport</code></td><td>→ <code>AbuseReport</code></td></tr>
+  </table></div>
+  <p style="color:var(--text2);font-size:11px;">Поддерживаемые префиксы: <code>DFInt DFFlag DFLog DFString FInt FFlag FLog FString SFInt SFFlag SFLog SFString</code></p>
+</div>
 
-    <h3>Prefix Stripping</h3>
-    <p style="color:var(--text2);margin-bottom:12px;">If a flag isn't found in the dump, CapyWare strips known prefixes and tries the bare name. Works across all dump rings.</p>
-    <div class="table-wrap">
-    <table>
-      <tr><th>Input</th><th>Tries</th></tr>
-      <tr><td><code>DFIntTaskSchedulerTargetFps</code></td><td>→ <code>TaskSchedulerTargetFps</code></td></tr>
-      <tr><td><code>FFlagDebugDisplayFPS</code></td><td>→ <code>DebugDisplayFPS</code></td></tr>
-      <tr><td><code>DFLogAbuseReport</code></td><td>→ <code>AbuseReport</code></td></tr>
-    </table>
-    </div>
-    <p style="color:var(--text2);font-size:12px;">Supported prefixes: <code>DFInt DFFlag DFLog DFString FInt FFlag FLog FString SFInt SFFlag SFLog SFString</code></p>
+<!-- DUMPS -->
+<div class="sec anchor" id="dumps">
+  <h2>Dump System</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Флаги ищутся по кольцам приоритета. Ring 0 всегда первый.</p>
+  <div class="rings">
+    <div class="ring r0"><span class="rb">RING 0</span><span class="rd">Основной дамп (default: GitHub current_dump.h). Ищется первым.</span></div>
+    <div class="ring r1"><span class="rb">RING 1</span><span class="rd">Резервный. Используется если флаг не найден в ring 0.</span></div>
+    <div class="ring r2"><span class="rb">RING 2</span><span class="rd">Второй резервный. Количество рингов не ограничено.</span></div>
   </div>
+  <pre data-lang="capyware"><code><span class="cmt">-- добавить дамп (формат: auto / json / h)</span>
+<span class="fn">adddump</span>(<span class="str">"https://example.com/dump.h"</span>, <span class="str">"backup"</span>, <span class="str">"auto"</span>)
 
-  <!-- SCRIPTING -->
-  <div class="section anchor" id="scripting">
-    <h2>Scripting Engine</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Enable <strong>Scripting Engine</strong> in Settings to unlock automation functions. Flags still work exactly the same — scripting is additive.</p>
+<span class="cmt">-- переставить дамп в нужный ринг</span>
+<span class="fn">usedump</span>(<span class="str">"backup"</span>, <span class="num">1</span>)
 
-    <h3>wait()</h3>
-    <pre data-lang="capyware"><code><span class="flag">TaskSchedulerTargetFps</span> = <span class="num">9999</span>
-<span class="fn">wait</span>(<span class="num">2</span>)
-<span class="fn">print</span>(<span class="str">"2 seconds later"</span>)
-<span class="flag">DebugDisplayFPS</span> = <span class="kw">true</span></code></pre>
+<span class="cmt">-- посмотреть все загруженные дампы</span>
+<span class="fn">getdumps</span>()</code></pre>
+  <div class="tw"><table>
+    <tr><th>Формат дампа</th><th>Пример</th></tr>
+    <tr><td>C++ header (.h)</td><td><code>inline constexpr FFlag Foo = 0x1234abc;</code></td></tr>
+    <tr><td>JSON</td><td><code>{"FlagName": "0x1234"}</code> или <code>{"FlagName": 1234}</code></td></tr>
+  </table></div>
+</div>
 
-    <h3>print()</h3>
-    <pre data-lang="capyware"><code><span class="fn">print</span>(<span class="str">"Hello from CapyWare"</span>)
-<span class="fn">print</span>(<span class="str">"flags applied!"</span>)</code></pre>
+<!-- VARIABLES -->
+<div class="sec anchor" id="vars">
+  <h2>Variables</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Переменные скрипта — строчная буква в начале имени. FFlag — заглавная.</p>
+  <pre data-lang="capyware"><code><span class="cmt">-- локальная переменная (только в текущем скрипте)</span>
+<span class="kw">local</span> <span class="fn">x</span> <span class="op">=</span> <span class="num">25</span>
+<span class="kw">local</span> <span class="fn">name</span> <span class="op">=</span> <span class="str">"capy"</span>
+<span class="kw">local</span> <span class="fn">flag</span> <span class="op">=</span> <span class="kw">true</span>
 
-    <h3>json()</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- inline JSON block inside a script</span>
-<span class="fn">json</span>({<span class="str">"DebugDisplayFPS"</span>: <span class="kw">true</span>, <span class="str">"TaskSchedulerTargetFps"</span>: <span class="num">9999</span>})</code></pre>
+<span class="cmt">-- присваивание без local — тоже локальная</span>
+<span class="fn">count</span> <span class="op">=</span> <span class="num">0</span>
 
-    <h3>getexecutorname() / identifyexecutor()</h3>
-    <pre data-lang="capyware"><code><span class="fn">getexecutorname</span>()    <span class="cmt">-- prints "CapyWare V1.0"</span>
-<span class="fn">identifyexecutor</span>()   <span class="cmt">-- same</span></code></pre>
-  </div>
+<span class="cmt">-- конкатенация строк</span>
+<span class="kw">local</span> <span class="fn">msg</span> <span class="op">=</span> <span class="str">"hello "</span> <span class="op">..</span> name
+<span class="fn">print</span>(msg)   <span class="cmt">-- hello capy</span>
 
-  <!-- EVENTS -->
-  <div class="section anchor" id="events">
-    <h2>Events</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Events register handlers that fire automatically. They persist until <strong>⏏ Eject</strong>.</p>
+<span class="cmt">-- это FFlag, не переменная (заглавная буква)</span>
+<span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span></code></pre>
+</div>
 
-    <h3>OnKeyPress</h3>
-    <pre data-lang="capyware"><code><span class="kw">OnKeyPress</span>(<span class="str">"Q"</span>):
-    <span class="flag">TaskSchedulerTargetFps</span> = <span class="num">9999</span>
+<!-- CONTROL FLOW -->
+<div class="sec anchor" id="control">
+  <h2>Control Flow</h2>
+  <div class="sdiv"></div>
+
+  <h3>if / elseif / else / end</h3>
+  <pre data-lang="capyware"><code><span class="kw">local</span> <span class="fn">x</span> <span class="op">=</span> <span class="num">10</span>
+
+<span class="cmt">-- однострочный</span>
+<span class="kw">if</span> x <span class="op">==</span> <span class="num">10</span> <span class="kw">then</span> <span class="fn">print</span>(<span class="str">"ten"</span>) <span class="kw">end</span>
+
+<span class="cmt">-- многострочный</span>
+<span class="kw">if</span> x <span class="op">==</span> <span class="num">10</span> <span class="kw">then</span>
+    <span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
     <span class="fn">print</span>(<span class="str">"fps unlocked"</span>)
+<span class="kw">elseif</span> x <span class="op">==</span> <span class="num">5</span> <span class="kw">then</span>
+    <span class="fn">print</span>(<span class="str">"five"</span>)
+<span class="kw">else</span>
+    <span class="fn">print</span>(<span class="str">"other"</span>)
+<span class="kw">end</span></code></pre>
+
+  <h3>Операторы сравнения</h3>
+  <div class="tw"><table>
+    <tr><th>Оператор</th><th>Значение</th></tr>
+    <tr><td><code>==</code></td><td>равно</td></tr>
+    <tr><td><code>~=</code> или <code>!=</code></td><td>не равно</td></tr>
+    <tr><td><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></td><td>больше / меньше / и т.д.</td></tr>
+    <tr><td><code>and</code></td><td>логическое И</td></tr>
+    <tr><td><code>or</code></td><td>логическое ИЛИ</td></tr>
+    <tr><td><code>not</code></td><td>логическое НЕ</td></tr>
+  </table></div>
+
+  <h3>while / do / end + break / continue</h3>
+  <pre data-lang="capyware"><code><span class="kw">local</span> <span class="fn">i</span> <span class="op">=</span> <span class="num">0</span>
+<span class="kw">while</span> i <span class="op">&lt;</span> <span class="num">5</span> <span class="kw">do</span>
+    i <span class="op">=</span> i <span class="op">+</span> <span class="num">1</span>
+    <span class="kw">if</span> i <span class="op">==</span> <span class="num">3</span> <span class="kw">then</span> <span class="kw">continue</span> <span class="kw">end</span>  <span class="cmt">-- пропустить итерацию</span>
+    <span class="kw">if</span> i <span class="op">==</span> <span class="num">5</span> <span class="kw">then</span> <span class="kw">break</span> <span class="kw">end</span>     <span class="cmt">-- выйти из цикла</span>
+    <span class="fn">print</span>(i)
+<span class="kw">end</span></code></pre>
+
+  <h3>wait()</h3>
+  <pre data-lang="capyware"><code><span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
+<span class="fn">wait</span>(<span class="num">2</span>)        <span class="cmt">-- пауза 2 секунды (блокирует скрипт)</span>
+<span class="fn">print</span>(<span class="str">"done"</span>)
+<span class="fn">wait</span>()         <span class="cmt">-- без аргумента = 0 секунд</span></code></pre>
+</div>
+
+<!-- FUNCTIONS -->
+<div class="sec anchor" id="functions">
+  <h2>Functions</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Пользовательские функции сохраняются в памяти до закрытия CapyWare и доступны из любого скрипта.</p>
+  <pre data-lang="capyware"><code><span class="cmt">-- объявление</span>
+<span class="kw">function</span> <span class="fn">boost</span>()
+    <span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
+    <span class="fl">DebugDisplayFPS</span> <span class="op">=</span> <span class="kw">true</span>
+    <span class="fn">print</span>(<span class="str">"boosted!"</span>)
+<span class="kw">end</span>
+
+<span class="cmt">-- вызов</span>
+<span class="fn">boost</span>()
+
+<span class="cmt">-- функции доступны из других скриптов пока капивар открыт</span>
+<span class="fn">boost</span>()</code></pre>
+  <div class="warn">⚠ <div>Функции без аргументов. Параметры не поддерживаются — используй глобальные переменные для передачи данных.</div></div>
+</div>
+
+<!-- EVENTS -->
+<div class="sec anchor" id="events">
+  <h2>Events</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Ивенты регистрируют хендлеры которые срабатывают автоматически. Живут до ⏏ Eject.</p>
+
+  <h3>OnKeyPress</h3>
+  <pre data-lang="capyware"><code><span class="kw">OnKeyPress</span>(<span class="str">"Q"</span>):
+    <span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
+    <span class="fn">print</span>(<span class="str">"Q — fps unlocked"</span>)
 <span class="kw">end</span>
 
 <span class="kw">OnKeyPress</span>(<span class="str">"E"</span>):
-    <span class="flag">TaskSchedulerTargetFps</span> = <span class="num">60</span>
-    <span class="fn">print</span>(<span class="str">"fps locked"</span>)
+    <span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">60</span>
 <span class="kw">end</span></code></pre>
+  <div class="info">ℹ <div>Хоткей срабатывает глобально — даже когда CapyWare свёрнут. Все хендлеры очищаются при Eject.</div></div>
 
-    <h3>OnAttach</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- fires when ⚡ Inject succeeds</span>
+  <h3>OnAttach</h3>
+  <pre data-lang="capyware"><code><span class="cmt">-- срабатывает когда ⚡ Inject успешен</span>
 <span class="kw">OnAttach</span>():
-    <span class="fn">print</span>(<span class="str">"attached to Roblox!"</span>)
-    <span class="flag">TaskSchedulerTargetFps</span> = <span class="num">9999</span>
+    <span class="fn">print</span>(<span class="str">"attached!"</span>)
+    <span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> <span class="num">9999</span>
 <span class="kw">end</span></code></pre>
 
-    <h3>OnEject</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- fires when ⏏ Eject is clicked</span>
+  <h3>OnEject</h3>
+  <pre data-lang="capyware"><code><span class="cmt">-- срабатывает когда нажата ⏏ Eject</span>
 <span class="kw">OnEject</span>():
-    <span class="fn">print</span>(<span class="str">"detached"</span>)
+    <span class="fn">print</span>(<span class="str">"bye"</span>)
 <span class="kw">end</span></code></pre>
+</div>
 
-    <div class="callout callout-warn">
-      <span class="callout-icon">⚠</span>
-      <div class="callout-body">OnKeyPress handlers use the global <strong>keyboard</strong> hook — they fire even when CapyWare is minimized. All handlers are cleared on Eject.</div>
-    </div>
+<!-- MATH -->
+<div class="sec anchor" id="math">
+  <h2>math.*</h2>
+  <div class="sdiv"></div>
+  <div class="tw"><table>
+    <tr><th>Функция</th><th>Описание</th><th>Пример</th></tr>
+    <tr><td><code>math.random()</code></td><td>случайный float 0.0–1.0</td><td><code>math.random()</code></td></tr>
+    <tr><td><code>math.random(n)</code></td><td>случайный int 1–n</td><td><code>math.random(100)</code></td></tr>
+    <tr><td><code>math.random(a, b)</code></td><td>случайный int a–b</td><td><code>math.random(1, 50)</code></td></tr>
+    <tr><td><code>math.floor(x)</code></td><td>округлить вниз</td><td><code>math.floor(3.7)</code> → 3</td></tr>
+    <tr><td><code>math.ceil(x)</code></td><td>округлить вверх</td><td><code>math.ceil(3.2)</code> → 4</td></tr>
+    <tr><td><code>math.round(x)</code></td><td>округлить</td><td><code>math.round(3.5)</code> → 4</td></tr>
+    <tr><td><code>math.abs(x)</code></td><td>абсолютное значение</td><td><code>math.abs(-5)</code> → 5</td></tr>
+    <tr><td><code>math.sqrt(x)</code></td><td>квадратный корень</td><td><code>math.sqrt(144)</code> → 12.0</td></tr>
+    <tr><td><code>math.pow(x, y)</code></td><td>степень</td><td><code>math.pow(2, 8)</code> → 256</td></tr>
+    <tr><td><code>math.max(a, b)</code></td><td>максимум</td><td><code>math.max(3, 7)</code> → 7</td></tr>
+    <tr><td><code>math.min(a, b)</code></td><td>минимум</td><td><code>math.min(3, 7)</code> → 3</td></tr>
+    <tr><td><code>math.clamp(v, lo, hi)</code></td><td>ограничить диапазон</td><td><code>math.clamp(150, 0, 100)</code> → 100</td></tr>
+    <tr><td><code>math.sin/cos/tan(x)</code></td><td>тригонометрия</td><td><code>math.sin(0)</code> → 0</td></tr>
+    <tr><td><code>math.log(x)</code></td><td>натуральный логарифм</td><td><code>math.log(1)</code> → 0</td></tr>
+    <tr><td><code>math.pi</code></td><td>число π</td><td><code>local p = math.pi</code></td></tr>
+  </table></div>
+  <pre data-lang="capyware"><code><span class="kw">local</span> <span class="fn">r</span> <span class="op">=</span> <span class="fn">math</span>.random(<span class="num">1</span>, <span class="num">100</span>)
+<span class="fn">print</span>(r)
+
+<span class="kw">local</span> <span class="fn">fps</span> <span class="op">=</span> <span class="fn">math</span>.clamp(<span class="fn">r</span> <span class="op">*</span> <span class="num">10</span>, <span class="num">60</span>, <span class="num">9999</span>)
+<span class="fl">TaskSchedulerTargetFps</span> <span class="op">=</span> fps</code></pre>
+</div>
+
+<!-- OS -->
+<div class="sec anchor" id="os">
+  <h2>os.*</h2>
+  <div class="sdiv"></div>
+  <div class="tw"><table>
+    <tr><th>Функция</th><th>Описание</th></tr>
+    <tr><td><code>os.time()</code></td><td>Unix timestamp (секунды с 1970)</td></tr>
+    <tr><td><code>os.clock()</code></td><td>Время работы программы в секундах (4 знака)</td></tr>
+    <tr><td><code>os.date()</code></td><td>Текущая дата и время: <code>2026-03-22 08:00:00</code></td></tr>
+    <tr><td><code>os.date("%H:%M")</code></td><td>Дата в своём формате (strftime)</td></tr>
+    <tr><td><code>os.getenv("PATH")</code></td><td>Переменная окружения Windows</td></tr>
+    <tr><td><code>os.exit()</code></td><td>Остановить выполнение скрипта</td></tr>
+  </table></div>
+  <pre data-lang="capyware"><code><span class="fn">print</span>(<span class="fn">os</span>.time())
+<span class="fn">print</span>(<span class="fn">os</span>.date())
+<span class="kw">local</span> <span class="fn">t</span> <span class="op">=</span> <span class="fn">os</span>.clock()
+<span class="fn">print</span>(<span class="fn">os</span>.getenv(<span class="str">"USERNAME"</span>))</code></pre>
+</div>
+
+<!-- ENV -->
+<div class="sec anchor" id="env">
+  <h2>env.*</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Таблица с информацией о среде CapyWare.</p>
+  <div class="tw"><table>
+    <tr><th>Поле</th><th>Тип</th><th>Описание</th></tr>
+    <tr><td><code>env.version</code></td><td>string</td><td>Версия CapyWare, например <code>"V1.3"</code></td></tr>
+    <tr><td><code>env.os</code></td><td>string</td><td>Версия Windows (platform string)</td></tr>
+    <tr><td><code>env.cwd</code></td><td>string</td><td>Путь к папке CapyWare</td></tr>
+    <tr><td><code>env.pid</code></td><td>string</td><td>PID процесса Roblox (nil если не инжектед)</td></tr>
+  </table></div>
+  <pre data-lang="capyware"><code><span class="fn">print</span>(env.version)   <span class="cmt">-- V1.3</span>
+<span class="fn">print</span>(env.cwd)       <span class="cmt">-- C:\Users\...\CapyWare</span>
+<span class="fn">print</span>(env.pid)       <span class="cmt">-- 12345</span>
+
+<span class="kw">local</span> <span class="fn">ver</span> <span class="op">=</span> env.version
+<span class="fn">print</span>(<span class="str">"running "</span> <span class="op">..</span> ver)</code></pre>
+</div>
+
+<!-- GLOBALS -->
+<div class="sec anchor" id="globals">
+  <h2>Global Variables</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Глобальные переменные живут пока CapyWare открыт и доступны из любого скрипта, функции и autoexec.</p>
+  <pre data-lang="capyware"><code><span class="cmt">-- объявить глобальную переменную</span>
+<span class="kw">global</span> <span class="fn">myfps</span> <span class="op">=</span> <span class="num">9999</span>
+<span class="kw">global</span> <span class="fn">username</span> <span class="op">=</span> <span class="str">"capy"</span>
+
+<span class="cmt">-- в другом скрипте — переменная уже есть</span>
+<span class="fn">print</span>(myfps)    <span class="cmt">-- 9999</span>
+
+<span class="cmt">-- посмотреть все глобальные</span>
+<span class="fn">list_globals</span>()
+
+<span class="cmt">-- очистить все глобальные</span>
+<span class="fn">capyware</span>.clear_globals()</code></pre>
+</div>
+
+<!-- FILESYSTEM -->
+<div class="sec anchor" id="fs">
+  <h2>Filesystem</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Все пути относительны папке CapyWare. Требует Executor Mode в Settings.</p>
+  <div class="cards">
+    <div class="card"><div class="card-sig"><span class="fn-n">readfile</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Вернуть содержимое файла как строку. Выведет в консоль.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">writefile</span>(<span style="color:#86efac">"path"</span>, <span style="color:#86efac">"data"</span>)</div><div class="card-desc">Записать данные в файл. Создаст если нет, перезапишет если есть.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">appendfile</span>(<span style="color:#86efac">"path"</span>, <span style="color:#86efac">"data"</span>)</div><div class="card-desc">Дописать в конец файла.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">delfile</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Удалить файл.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">isfile</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Проверить существование файла. true/false в консоль.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">isfolder</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Проверить существование папки.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">makefolder</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Создать папку (и родительские если нужно).</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">delfolder</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Удалить папку со всем содержимым.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">listfiles</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Список файлов в папке. Выведет в консоль.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">loadfile</span>(<span style="color:#86efac">"path"</span>)</div><div class="card-desc">Прочитать и выполнить скрипт из файла.</div></div>
   </div>
+  <pre data-lang="capyware"><code><span class="fn">writefile</span>(<span class="str">"workspace/log.txt"</span>, <span class="str">"session started"</span>)
+<span class="fn">appendfile</span>(<span class="str">"workspace/log.txt"</span>, <span class="str">"\nfps = 9999"</span>)
+<span class="fn">readfile</span>(<span class="str">"workspace/log.txt"</span>)
+<span class="fn">loadfile</span>(<span class="str">"scripts/boost.cw"</span>)</code></pre>
+</div>
 
-  <!-- FILESYSTEM -->
-  <div class="section anchor" id="filesystem">
-    <h2>Filesystem</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">All paths are relative to the CapyWare folder unless absolute. Requires <strong>Executor Mode</strong> enabled in Settings.</p>
-
-    <div class="api-grid">
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">readfile</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Returns file contents as string. Prints to console.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">writefile</span>(<span style="color:var(--green)">"path"</span>, <span style="color:var(--green)">"data"</span>)</div>
-        <div class="api-card-desc">Write data to file. Creates if not exists, overwrites if exists.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">appendfile</span>(<span style="color:var(--green)">"path"</span>, <span style="color:var(--green)">"data"</span>)</div>
-        <div class="api-card-desc">Append data to end of file.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">delfile</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Delete a file.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">isfile</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Returns true/false. Prints result to console.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">isfolder</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Returns true/false. Prints result to console.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">makefolder</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Create a folder (and parents if needed).</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">delfolder</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Delete folder and all contents recursively.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">listfiles</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">List all files/folders in directory. Prints to console.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">loadfile</span>(<span style="color:var(--green)">"path"</span>)</div>
-        <div class="api-card-desc">Read and execute a script file. Runs in a new ScriptRunner thread.</div>
-      </div>
-    </div>
-
-    <h3>Example</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- log applied flags to file</span>
-<span class="fn">writefile</span>(<span class="str">"workspace/session.log"</span>, <span class="str">"session started"</span>)
-
-<span class="cmt">-- load a preset script</span>
-<span class="fn">loadfile</span>(<span class="str">"scripts/fps_boost.cw"</span>)
-
-<span class="cmt">-- check if backup exists</span>
-<span class="fn">isfile</span>(<span class="str">"workspace/backup.txt"</span>)</code></pre>
-  </div>
-
-  <!-- DUMP SYSTEM -->
-  <div class="section anchor" id="dumps">
-    <h2>Multi-Ring Dump System</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">CapyWare searches for flags across multiple dump sources in priority order. Ring 0 is always searched first.</p>
-
-    <div class="ring-diagram">
-      <div class="ring-row ring-0">
-        <span class="ring-badge">RING 0</span>
-        <span class="ring-arrow">→</span>
-        <span class="ring-desc">Primary dump (default: GitHub current_dump.h). Searched first.</span>
-      </div>
-      <div class="ring-row ring-1">
-        <span class="ring-badge">RING 1</span>
-        <span class="ring-arrow">→</span>
-        <span class="ring-desc">Fallback. Used if flag not found in ring 0.</span>
-      </div>
-      <div class="ring-row ring-2">
-        <span class="ring-badge">RING 2</span>
-        <span class="ring-arrow">→</span>
-        <span class="ring-desc">Second fallback. Any number of rings supported.</span>
-      </div>
-    </div>
-
-    <h3>adddump()</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- add a .h dump (auto-detect format)</span>
-<span class="fn">adddump</span>(<span class="str">"https://example.com/dump.h"</span>, <span class="str">"backup"</span>, <span class="str">"auto"</span>)
-
-<span class="cmt">-- add a JSON dump explicitly</span>
-<span class="fn">adddump</span>(<span class="str">"https://example.com/flags.json"</span>, <span class="str">"json_source"</span>, <span class="str">"json"</span>)
-
-<span class="cmt">-- ring assigned automatically (next after highest)</span></code></pre>
-
-    <h3>usedump()</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- move a dump to a specific ring</span>
-<span class="fn">usedump</span>(<span class="str">"backup"</span>, <span class="num">1</span>)</code></pre>
-
-    <h3>getdumps()</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- list all loaded dumps and their rings</span>
-<span class="fn">getdumps</span>()</code></pre>
-
-    <h3>Dump Formats</h3>
-    <div class="table-wrap">
-    <table>
-      <tr><th>Format</th><th>Example</th></tr>
-      <tr><td><code>.h</code> C++ header</td><td><code>inline constexpr FFlag FooBar = 0x1234abc;</code></td></tr>
-      <tr><td>JSON</td><td><code>{"FlagName": "0x1234"}</code> or <code>{"FlagName": 1234}</code></td></tr>
-    </table>
-    </div>
-  </div>
-
-  <!-- HTTP -->
-  <div class="section anchor" id="http">
-    <h2>HTTP / request()</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Send HTTP requests from scripts. Useful for Discord webhooks, logging, or any external API.</p>
-
-    <pre data-lang="capyware"><code><span class="cmt">-- simple GET</span>
+<!-- HTTP -->
+<div class="sec anchor" id="http">
+  <h2>request()</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">HTTP запросы из скрипта. Discord вебхуки, внешние API и т.д.</p>
+  <pre data-lang="capyware"><code><span class="cmt">-- простой GET</span>
 <span class="fn">request</span>({<span class="str">"url"</span>: <span class="str">"https://httpbin.org/get"</span>, <span class="str">"method"</span>: <span class="str">"GET"</span>})
 
 <span class="cmt">-- Discord webhook</span>
 <span class="fn">request</span>({
-  <span class="str">"url"</span>: <span class="str">"https://discord.com/api/webhooks/YOUR_WEBHOOK"</span>,
-  <span class="str">"method"</span>: <span class="str">"POST"</span>,
-  <span class="str">"headers"</span>: {<span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>},
-  <span class="str">"body"</span>: <span class="str">"{\"content\": \"CapyWare injected\"}"</span>
+    <span class="str">"url"</span>: <span class="str">"https://discord.com/api/webhooks/ID/TOKEN"</span>,
+    <span class="str">"method"</span>: <span class="str">"POST"</span>,
+    <span class="str">"headers"</span>: {<span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>},
+    <span class="str">"body"</span>: <span class="str">"{\"content\": \"injected\"}"</span>
 })</code></pre>
+  <div class="tw"><table>
+    <tr><th>Поле</th><th>Обязательно</th><th>Описание</th></tr>
+    <tr><td><code>url</code></td><td>✓</td><td>URL запроса</td></tr>
+    <tr><td><code>method</code></td><td>—</td><td>HTTP метод. По умолчанию GET</td></tr>
+    <tr><td><code>body</code></td><td>—</td><td>Тело запроса (строка)</td></tr>
+    <tr><td><code>headers</code></td><td>—</td><td>Заголовки запроса</td></tr>
+  </table></div>
+</div>
 
-    <div class="table-wrap">
-    <table>
-      <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
-      <tr><td><code>url</code></td><td>string</td><td>✓</td><td>Target URL</td></tr>
-      <tr><td><code>method</code></td><td>string</td><td>—</td><td>HTTP method. Default: <code>GET</code></td></tr>
-      <tr><td><code>body</code></td><td>string</td><td>—</td><td>Request body</td></tr>
-      <tr><td><code>headers</code></td><td>object</td><td>—</td><td>Additional request headers</td></tr>
-    </table>
-    </div>
+<!-- API -->
+<div class="sec anchor" id="api">
+  <h2>capyware.* API</h2>
+  <div class="sdiv"></div>
+  <div class="cards">
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.offsets</span>()</div><div class="card-desc">Перезагрузить ring 0 дамп с GitHub.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.eject</span>()</div><div class="card-desc">Eject — освободить хендл, очистить хоткеи. Аналог кнопки ⏏.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.undoall</span>()</div><div class="card-desc">Откатить все изменённые флаги к исходным значениям (undo log).</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.notify</span>(<span style="color:#86efac">"msg"</span>)</div><div class="card-desc">Вывести сообщение в консоль с префиксом 🔔.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.attached</span>()</div><div class="card-desc">Вывести true/false — подключён ли к Roblox.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.version</span>()</div><div class="card-desc">Вывести текущую версию CapyWare.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.currentfps</span>()</div><div class="card-desc">Прочитать текущее значение TaskSchedulerTargetFps из памяти Roblox.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.clear_globals</span>()</div><div class="card-desc">Очистить все глобальные переменные.</div></div>
+    <div class="card"><div class="card-sig"><span class="fn-n">capyware.exec</span>(<span style="color:#86efac">"python code"</span>)</div><div class="card-desc">Выполнить произвольный Python код. Код в кавычках.</div></div>
   </div>
-
-  <!-- API -->
-  <div class="section anchor" id="api">
-    <h2>capyware.* API</h2>
-    <div class="section-divider"></div>
-
-    <div class="api-grid">
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.offsets</span>()</div>
-        <div class="api-card-desc">Reload ring 0 dump from GitHub.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.eject</span>()</div>
-        <div class="api-card-desc">Eject — release handle, clear all key handlers. Same as clicking ⏏.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.undoall</span>()</div>
-        <div class="api-card-desc">Restore all modified flags to their original values using undo log.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.notify</span>(<span style="color:var(--green)">"msg"</span>)</div>
-        <div class="api-card-desc">Print a message to the output console with 🔔 prefix.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.attached</span>()</div>
-        <div class="api-card-desc">Prints true/false — whether currently attached to Roblox.</div>
-      </div>
-      <div class="api-card">
-        <div class="api-card-sig"><span class="fn-name">capyware.version</span>()</div>
-        <div class="api-card-desc">Prints current CapyWare version string.</div>
-      </div>
-    </div>
-
-    <h3>Example usage</h3>
-    <pre data-lang="capyware"><code><span class="kw">OnAttach</span>():
-    <span class="fn">capyware</span>.notify(<span class="str">"attached to Roblox"</span>)
-    <span class="fn">capyware</span>.offsets()     <span class="cmt">-- refresh dump on attach</span>
-    <span class="fn">loadfile</span>(<span class="str">"scripts/main.cw"</span>)
+  <pre data-lang="capyware"><code><span class="cmt">-- пример: при инжекте обновить дамп и залогировать</span>
+<span class="kw">OnAttach</span>():
+    <span class="fn">capyware</span>.offsets()
+    <span class="fn">capyware</span>.notify(<span class="str">"attached!"</span>)
+    <span class="fn">capyware</span>.currentfps()
 <span class="kw">end</span>
 
-<span class="kw">OnKeyPress</span>(<span class="str">"F1"</span>):
-    <span class="fn">capyware</span>.undoall()     <span class="cmt">-- reset all flags</span>
-    <span class="fn">print</span>(<span class="str">"flags restored"</span>)
-<span class="kw">end</span></code></pre>
-  </div>
+<span class="cmt">-- выполнить python</span>
+<span class="fn">capyware</span>.exec(<span class="str">"import os; os.startfile('notepad.exe')"</span>)</code></pre>
 
-  <!-- SET -->
-  <div class="section anchor" id="set">
-    <h2>set() / enum</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Change CapyWare settings from within a script.</p>
+  <h3>getexecutorname() / identifyexecutor()</h3>
+  <pre data-lang="capyware"><code><span class="fn">getexecutorname</span>()    <span class="cmt">-- [>] CapyWare V1.3</span>
+<span class="fn">identifyexecutor</span>()   <span class="cmt">-- то же самое</span></code></pre>
+</div>
 
-    <h3>set()</h3>
-    <pre data-lang="capyware"><code><span class="fn">set</span>(<span class="str">"Auto JSON mode"</span>, <span class="kw">true</span>)
+<!-- SET -->
+<div class="sec anchor" id="set">
+  <h2>set() / enum</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Изменить настройки CapyWare из скрипта.</p>
+  <pre data-lang="capyware"><code><span class="fn">set</span>(<span class="str">"Auto JSON mode"</span>, <span class="kw">true</span>)
 <span class="fn">set</span>(<span class="str">"Prefix stripping"</span>, <span class="kw">true</span>)
 <span class="fn">set</span>(<span class="str">"Scripting engine"</span>, <span class="kw">true</span>)
 <span class="fn">set</span>(<span class="str">"Executor mode"</span>, <span class="kw">true</span>)
 <span class="fn">set</span>(<span class="str">"Minimize window"</span>, <span class="kw">enum</span>.F9)</code></pre>
 
-    <div class="table-wrap">
-    <table>
-      <tr><th>Setting</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>"Auto JSON mode"</code></td><td>bool</td><td>Auto-detect JSON format</td></tr>
-      <tr><td><code>"Prefix stripping"</code></td><td>bool</td><td>Try DFIntFoo → Foo if not found</td></tr>
-      <tr><td><code>"Scripting engine"</code></td><td>bool</td><td>Enable wait/print/events/etc</td></tr>
-      <tr><td><code>"Executor mode"</code></td><td>bool</td><td>Enable filesystem and dump API</td></tr>
-      <tr><td><code>"Minimize window"</code></td><td>enum.Key</td><td>Toggle minimize/restore hotkey</td></tr>
-    </table>
-    </div>
+  <h3>enum.Key</h3>
+  <pre data-lang="capyware"><code><span class="cmt">-- буквы</span>
+<span class="kw">enum</span>.A  <span class="kw">enum</span>.B  ...  <span class="kw">enum</span>.Z
 
-    <h3>enum.Key values</h3>
-    <pre data-lang="capyware"><code><span class="cmt">-- Letters</span>
-<span class="kw">enum</span>.A  <span class="kw">enum</span>.B  ... <span class="kw">enum</span>.Z
+<span class="cmt">-- функциональные клавиши</span>
+<span class="kw">enum</span>.F1  <span class="kw">enum</span>.F2  ...  <span class="kw">enum</span>.F12
 
-<span class="cmt">-- Function keys</span>
-<span class="kw">enum</span>.F1  <span class="kw">enum</span>.F2  ... <span class="kw">enum</span>.F12
-
-<span class="cmt">-- Navigation</span>
+<span class="cmt">-- навигация</span>
 <span class="kw">enum</span>.End  <span class="kw">enum</span>.Home  <span class="kw">enum</span>.Insert  <span class="kw">enum</span>.Delete
 <span class="kw">enum</span>.PageUp  <span class="kw">enum</span>.PageDown
 
-<span class="cmt">-- Other</span>
+<span class="cmt">-- прочее</span>
 <span class="kw">enum</span>.Space  <span class="kw">enum</span>.Return  <span class="kw">enum</span>.Escape  <span class="kw">enum</span>.Tab</code></pre>
-  </div>
+</div>
 
-  <!-- MISC -->
-  <div class="section anchor" id="misc">
-    <h2>MISC Tab</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Quick controls for common flags — no scripting required.</p>
+<!-- MISC -->
+<div class="sec anchor" id="misc">
+  <h2>MISC Tab</h2>
+  <div class="sdiv"></div>
+  <p class="sdesc">Быстрые контролы для частых флагов — без скрипта.</p>
+  <div class="tw"><table>
+    <tr><th>Контрол</th><th>Флаг</th><th>Описание</th></tr>
+    <tr><td>Target FPS + Apply</td><td><code>TaskSchedulerTargetFps</code></td><td>Установить лимит FPS. 9999 = без лимита.</td></tr>
+    <tr><td>Show FPS counter</td><td><code>DebugDisplayFPS</code></td><td>Счётчик FPS в игре.</td></tr>
+    <tr><td>Disable DPI Scale</td><td><code>DisableDPIScale</code></td><td>Отключить масштабирование DPI (для 4K мониторов).</td></tr>
+    <tr><td>Max Bandwidth + Apply</td><td><code>PhysicsSenderMaxBandwidthBps</code></td><td>Пропускная способность физики. Выше = плавнее движение.</td></tr>
+  </table></div>
+</div>
 
-    <div class="table-wrap">
-    <table>
-      <tr><th>Control</th><th>Flag</th><th>Description</th></tr>
-      <tr><td>Target FPS + Apply</td><td><code>TaskSchedulerTargetFps</code></td><td>Set FPS cap. 9999 = effectively unlimited.</td></tr>
-      <tr><td>Show FPS counter</td><td><code>DebugDisplayFPS</code></td><td>Toggles the in-game FPS counter overlay.</td></tr>
-      <tr><td>Disable DPI Scale</td><td><code>DisableDPIScale</code></td><td>Fixes blurry UI on 4K/HiDPI monitors.</td></tr>
-      <tr><td>Max Bandwidth + Apply</td><td><code>PhysicsSenderMaxBandwidthBps</code></td><td>Physics network bandwidth. Higher = smoother physics at cost of bandwidth.</td></tr>
-    </table>
-    </div>
-  </div>
+<!-- SETTINGS -->
+<div class="sec anchor" id="settings">
+  <h2>Settings</h2>
+  <div class="sdiv"></div>
+  <div class="tw"><table>
+    <tr><th>Настройка</th><th>По умолчанию</th><th>Описание</th></tr>
+    <tr><td>Auto JSON mode</td><td>ON</td><td>Автоматически определять JSON формат по <code>{</code></td></tr>
+    <tr><td>Prefix stripping</td><td>ON</td><td>DFIntFoo → Foo если не найден в дампе</td></tr>
+    <tr><td>Scripting engine</td><td>ON</td><td>wait / print / if / while / функции / ивенты / capyware.*</td></tr>
+    <tr><td>Executor mode</td><td>ON</td><td>Filesystem / dump API / HTTP request()</td></tr>
+    <tr><td>Autoexec on inject</td><td>ON</td><td>Запускать скрипты из <code>autoexec/</code> при Inject</td></tr>
+    <tr><td>Minimize window</td><td>End</td><td>Глобальный хоткей — minimize/restore (работает фоново)</td></tr>
+  </table></div>
+  <div class="info">ℹ <div>Все настройки сохраняются автоматически в <code>config.cfg</code> при каждом изменении.</div></div>
+</div>
 
-  <!-- SETTINGS -->
-  <div class="section anchor" id="settings">
-    <h2>Settings</h2>
-    <div class="section-divider"></div>
+<!-- CHANGELOG -->
+<div class="sec anchor" id="changelog">
+  <h2>Changelog</h2>
+  <div class="sdiv"></div>
 
-    <div class="table-wrap">
-    <table>
-      <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
-      <tr><td>Auto JSON mode</td><td>ON</td><td>Detect <code>{</code> and parse as JSON automatically</td></tr>
-      <tr><td>Prefix stripping</td><td>ON</td><td>Try DFIntFoo → Foo across all dump rings</td></tr>
-      <tr><td>Scripting engine</td><td>ON</td><td>Enable wait, print, events, capyware.*, set()</td></tr>
-      <tr><td>Executor mode</td><td>ON</td><td>Enable filesystem, dump API, HTTP request()</td></tr>
-      <tr><td>Autoexec on inject</td><td>ON</td><td>Run all scripts from <code>autoexec/</code> on Inject</td></tr>
-      <tr><td>Minimize window</td><td>End</td><td>Global hotkey to toggle minimize/restore</td></tr>
-    </table>
-    </div>
+  <div class="cl"><div class="clv cur">V1.3</div><div><ul>
+    <li>math.* — random(a,b), floor, ceil, sqrt, clamp и др.</li>
+    <li>os.* — time, clock, date, getenv, exit</li>
+    <li>env.* — version, os, cwd, pid</li>
+    <li>Глобальные переменные: global / list_globals() / capyware.clear_globals()</li>
+    <li>Пользовательские функции: function name() ... end</li>
+    <li>capyware.exec("python code")</li>
+    <li>capyware.currentfps()</li>
+    <li>Инлайн комментарии: print(x) -- comment</li>
+    <li>Исправлен print — строки, переменные, выражения</li>
+  </ul></div></div>
 
-    <div class="callout callout-info">
-      <span class="callout-icon">ℹ</span>
-      <div class="callout-body">All settings are saved automatically to <code>config.cfg</code> on every change and on close.</div>
-    </div>
-  </div>
+  <div class="cl"><div class="clv cur">V1.2</div><div><ul>
+    <li>if / elseif / else / end</li>
+    <li>while / do / end</li>
+    <li>break / continue</li>
+    <li>Переменные: local x = val, x = val</li>
+    <li>Строковая конкатенация: a .. b</li>
+    <li>Логические операторы: and, or, not</li>
+    <li>Исправлен JSON приоритет над ScriptRunner</li>
+  </ul></div></div>
 
-  <!-- CHANGELOG -->
-  <div class="section anchor" id="changelog">
-    <h2>Changelog</h2>
-    <div class="section-divider"></div>
+  <div class="cl"><div class="clv cur">V1.1</div><div><ul>
+    <li>Автоустановка: копирует себя в папку, создаёт ярлык, удаляет оригинал</li>
+    <li>Autoexec при Inject</li>
+    <li>Папочная структура: autoexec / scripts / workspace</li>
+    <li>config.cfg автосохранение</li>
+  </ul></div></div>
 
-    <div class="changelog-entry">
-      <div class="changelog-ver current">V1.0</div>
-      <div class="changelog-body">
-        <ul>
-          <li>Full scripting API: wait, print, json, OnKeyPress, OnAttach, OnEject</li>
-          <li>Multi-ring dump system: adddump, usedump, getdumps</li>
-          <li>Filesystem API: readfile, writefile, appendfile, loadfile, and more</li>
-          <li>HTTP request() — Discord webhooks, external APIs</li>
-          <li>capyware.* API: offsets, eject, undoall, notify, attached, version</li>
-          <li>getexecutorname() / identifyexecutor()</li>
-          <li>MISC tab with quick controls</li>
-          <li>SETTINGS tab with full config</li>
-          <li>Autoexec on inject from autoexec/</li>
-          <li>config.cfg auto-save</li>
-          <li>Undo log — capyware.undoall() restores original values</li>
-          <li>Improved inject/eject flow</li>
-          <li>Folder structure: autoexec, scripts, workspace</li>
-        </ul>
-      </div>
-    </div>
+  <div class="cl"><div class="clv cur">V1.0</div><div><ul>
+    <li>ScriptRunner — полный скриптовый движок</li>
+    <li>OnKeyPress / OnAttach / OnEject ивенты</li>
+    <li>Multi-ring dump система: adddump / usedump / getdumps</li>
+    <li>Filesystem API: readfile, writefile, loadfile и др.</li>
+    <li>HTTP request()</li>
+    <li>capyware.* API: offsets, eject, undoall, notify, attached, version</li>
+    <li>MISC таб, SETTINGS таб</li>
+    <li>Undo log — capyware.undoall()</li>
+    <li>⏏ Eject + ⚡ Inject раздельно</li>
+  </ul></div></div>
 
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.9</div>
-      <div class="changelog-body">
-        <ul>
-          <li>Basic scripting: wait(), print(), capyware.undoall()</li>
-          <li>OnKeyPress event handler</li>
-          <li>Global hotkey with queue-based thread safety</li>
-        </ul>
-      </div>
-    </div>
+  <div class="cl"><div class="clv old">V0.9</div><div><ul>
+    <li>Базовый ScriptRunner: wait(), print(), capyware.undoall()</li>
+    <li>OnKeyPress, глобальный хоткей через queue</li>
+  </ul></div></div>
 
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.8</div>
-      <div class="changelog-body">
-        <ul>
-          <li>Inject / Eject split (previously Refresh/Inject)</li>
-          <li>No auto-attach on startup</li>
-          <li>Exe crash fix</li>
-        </ul>
-      </div>
-    </div>
+  <div class="cl"><div class="clv old">V0.7</div><div><ul>
+    <li>Prefix stripping (DFInt, FFlag и др.)</li>
+    <li>Лучший UI, жирные шрифты</li>
+    <li>Settings таб с keybind</li>
+  </ul></div></div>
 
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.7</div>
-      <div class="changelog-body">
-        <ul>
-          <li>Improved UI, bold fonts everywhere</li>
-          <li>FFlag prefix stripping (DFInt, FFlag, etc.)</li>
-          <li>Settings tab with keybind</li>
-        </ul>
-      </div>
-    </div>
+  <div class="cl"><div class="clv old">V0.6</div><div><ul>
+    <li>JSON формат, авто-определение</li>
+  </ul></div></div>
 
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.6</div>
-      <div class="changelog-body">
-        <ul>
-          <li>JSON format support</li>
-          <li>Auto-detect JSON vs Key=Value</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.5</div>
-      <div class="changelog-body">
-        <ul>
-          <li>Better UI redesign</li>
-          <li>New exe icon</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="changelog-entry">
-      <div class="changelog-ver old">V0.3</div>
-      <div class="changelog-body">
-        <ul>
-          <li>First public version</li>
-          <li>Basic FFlag read/write</li>
-          <li>PyQt5 UI with dark theme</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <div class="cl"><div class="clv old">V0.3</div><div><ul>
+    <li>Первая публичная версия</li>
+    <li>Базовая запись FFlag в память</li>
+    <li>PyQt5 UI</li>
+  </ul></div></div>
+</div>
 
 </main>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <span>CapyWare V1.0 · External FFlag Executor for Roblox</span>
+  <span>CapyWare V1.3 · External FFlag Executor for Roblox</span>
   <span>
     <a href="https://github.com/KrutoyCapybarin/CapyWare">GitHub</a> ·
     <a href="https://discord.gg/capybulba">Discord</a> ·
@@ -962,23 +730,18 @@ requests  — HTTP (request() scripting function)</code></pre>
 </footer>
 
 <script>
-// active nav link on scroll
 const links = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('.anchor, .hero');
-
-const observer = new IntersectionObserver(entries => {
+const secs = document.querySelectorAll('.anchor');
+const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       links.forEach(l => l.classList.remove('active'));
-      const id = e.target.id;
-      const active = document.querySelector(`.nav-link[href="#${id}"]`);
-      if (active) active.classList.add('active');
+      const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
     }
   });
-}, { rootMargin: '-30% 0px -60% 0px' });
-
-sections.forEach(s => observer.observe(s));
+}, { rootMargin: '-25% 0px -65% 0px' });
+secs.forEach(s => obs.observe(s));
 </script>
-
 </body>
 </html>
